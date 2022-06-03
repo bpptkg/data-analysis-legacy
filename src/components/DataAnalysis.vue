@@ -2,67 +2,69 @@
   <html lang="en">
     <div class="app">
       <div class="content">
-        <div class="loading">
-          <div v-show="isloading" style="margin-left: 60%; margin-right: 50%; margin-top: 25%;">
+        <div class="loading graph-body">
+          <div v-show="is_loading" style="margin: 50%; margin-top: 30%;">
             <b-spinner variant="success"></b-spinner>
           </div>
         </div>
-        <div class="row">
-          <div v-for="graph in graphs" :key="graph.id" class="card col-md-3 mt-3" style="border-radius: 15px">
+        <div class="row graph-body" style="padding: 10px;">
+          <div v-for="graph in graphs" :key="graph.id" class="card col-md-4 mt-3" style="border-radius: 15px;">
             <div class="card-body">
-              <h5 class="card-title text-success" style="font-weight: 600; font-size: 1.0em;">Grafik {{graph.title}}</h5>
+              <h5 
+                class="card-title text-success" 
+                style="font-weight: 600; font-size: 1.0em;"
+                >Grafik {{graph.title}}
+              </h5>
               <img
-              :src="graph.image.url"
-              :alt="graph.title"
-              style="max-width: 100%"
+                :src="graph.image.url"
+                :alt="graph.title"
+                style="max-width: 100%"
               />
               <p 
-              class="card-text" 
-              style="color: rgb(65, 65, 65); font-size: 0.8em; text-align: center;"
-              >Grafik telah tersedia, silahkan pilih download untuk mengunduh gambar grafik.
+                class="card-text" 
+                style="color: rgb(65, 65, 65); font-size: 0.8em; text-align: center;"
+                >Grafik telah tersedia, silahkan pilih download untuk mengunduh gambar grafik.
               </p>
               <a 
-              :href="graph.image.url" 
-              target="_blank" 
-              class="btn d-flex justify-content-center btn-outline-success" 
-              style="border-radius: 20px; font-weight: 600; font-size: 0.9em;"
-              >Download
+                class="btn d-flex justify-content-center btn-outline-success" 
+                :href="graph.image.url" 
+                target="_blank" 
+                style="border-radius: 20px; font-weight: 600; font-size: 0.9em;"
+                >Download
               </a>
             </div>
           </div>
         </div>
       </div>
-    <aside class="sidebar" ref="sidebar">
+  <transition name="slide">
+    <aside v-if="show" class="sidebar" ref="sidebar">
       <div class="form-container">
         <form>
           <div class="title">
             <h4 
-            class="text-success" 
-            style="font-weight: 600; transition: all 0.5s ease;"
-            >Request Grafik
+              class="text-success" 
+              style="font-weight: 600;"
+              >Request Grafik
             </h4>
           </div>
           <div class="name">
             <label>Tanggal Mulai</label>
           </div>
             <b-form-datepicker
-              format="YYYY-MM-DD"
+              class="mb-2"
               v-model="start_date"
               locale="id"
-              class="mb-2"
-              selected-variant="success"
-              placeholder="Pilih Tanggal Mulai"
-            ></b-form-datepicker>        
+              selected-variant="success">
+            </b-form-datepicker>        
           <div class="name">
             <label>Tanggal Selesai</label>
           </div>
               <b-form-datepicker
+                class="mb-2"
                 v-model="end_date"
                 locale="id"
-                class="mb-2"
-                selected-variant="success"
-                placeholder="Pilih Tanggal Selesai"
-              ></b-form-datepicker>
+                selected-variant="success">
+              </b-form-datepicker>
           <div class="name">
             <label>Pilih Grafik</label>
           </div>
@@ -70,9 +72,9 @@
               <div class="choices d-flex flex-column">
                 <label class="col" v-for="choice in options" :key="choice.name">
                   <input 
-                  v-model="graph_choices"
-                  type="checkbox"
-                  :value="choice.name" 
+                    v-model="graph_choices"
+                    type="checkbox"
+                    :value="choice.name" 
                   />
                   {{choice.title}}
                 </label>
@@ -81,8 +83,8 @@
           <br><br><br>
           <div class="d-flex flex-row-reverse">
             <b-button
-              type="button"
               class="btn shadow-sm p-2"
+              type="button"
               variant="success"
               style="font-size: 0.9em; font-weight: 500; transition: all 0.5s ease;"
               @click.prevent="handleOnExecute"
@@ -91,10 +93,19 @@
         </form>
       </div>
     </aside>
-      <div class="menu-toggle" id="toggle">
-        <button @click="toggleMenu">
-          <span>lorem</span>
-        </button>
+  </transition>
+      <div class="menu-toggle">
+        <b-button 
+          class="menu-toggle shadow-sm"
+          type="button" 
+          variant="success"
+          style="border-radius: 100px; transition: all 0.5s ease;"
+          v-on:click="show=!show"
+          >
+          <div class="h7">
+            <b-icon-grid-fill></b-icon-grid-fill>
+          </div>
+        </b-button>
       </div>
     </div>
   </html>
@@ -102,16 +113,17 @@
 
 <script>
 import axios from 'axios'
+import moment from 'moment'
 
 export default {
   data() {
     return {
-      start_date:'',
-      end_date:'',
-      graph_choices:[],
-      isloading:false, 
-      graphs:[],
-      isOpen:false,
+      start_date: moment().subtract(7,'days').format("YYYY-MM-DD"),
+      end_date: moment().format("YYYY-MM-DD"),
+      graph_choices: [],
+      is_loading: false, 
+      graphs: [],
+      show: true,
       options: [
         {
           name: "doas",
@@ -233,8 +245,8 @@ export default {
     };
   },
   methods:{
-    handleOnExecute(){
-    this.toggleIsLoading();
+    handleOnExecute() {
+    this.toggleIs_Loading();
     axios
       .post(
         "https://plotrequest.cendana15.com/api/request/",
@@ -250,49 +262,27 @@ export default {
         }
       )
       .then((response) => {
-        //console.log("response:",response.data);
         this.graphs=response.data.graphs;
       })
       .catch((error) => {
         this.$swal({
         toast: true,
-        position: 'top',
+        position: 'top-end',
         showConfirmButton: false,
         timer: 5000,
         icon: 'error',
         title: 'Oops..',
         text: "Permintaan gagal diproses, silahkan coba kembali!",
       });
-        //console.error("error:",error);
       })
-      .finally(()=>{
-        this.toggleIsLoading();
+      .finally(() => {
+        this.toggleIs_Loading();
       });
     },
-    toggleIsLoading(){
-      this.isloading=!this.isloading;
-    },
-    date_function: function () {
-      var currentDate = new Date();
-      console.log(currentDate);
-
-      var formatted_date = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-      console.log(formatted_date);
-    },
-    toggleMenu(){
-      console.log("Hello",this.$refs.sidebar);
-      if(this.isOpen){
-        this.$refs.sidebar.style.display="none";
-      }
-      else{
-        this.$refs.sidebar.style.display="block";
-      }
-      this.isOpen =!this.isOpen;
+    toggleIs_Loading() {
+      this.is_loading=!this.is_loading;
     }
-    },
-    mounted() {
-      this.date_function()
-    }
+  }
 }
 </script>
 
