@@ -6,15 +6,15 @@ For the current version, this app only supports Vue.js version 2 and Bootstrap v
 ## Project setup
 Clone the project from GitHub repository:
 
-   git clone https://github.com/fajarutamaa/data-analysis.git
+      git clone https://github.com/fajarutamaa/data-analysis.git
 
 Install all package dependencies:
 
-   npm install
+      npm install
 
 Compile and hot-reload for development:
 
-   npm run serve
+      npm run serve
     
 ### License
 [MIT](https://github.com/fajarutamaa/data-analysis/blob/main/LICENSE)
