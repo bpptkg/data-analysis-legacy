@@ -13,7 +13,7 @@ html {
   max-width: 350px;
   background-color: #ffffff;
   padding: 50px;
-  width: 100%;
+  width: 350px;
   position: fixed;
   min-height: 100%;
   float: none;
@@ -74,11 +74,11 @@ div.content {
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 .name {
-  color: rgb(65, 65, 65);
+  color: rgb(105, 105, 105);
   display: inline-block;
   margin: 25px 0 15px;
-  font-size: 0.8em;
-  font-weight: semi-bold;
+  font-size: 0.9em;
+  font-weight: 500;
 }
 .menu-toggle {
   display: none;
@@ -92,7 +92,7 @@ div.content {
   cursor: pointer;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
-.btn:hover {
+.button:hover {
   transform: scale(1.025);
 }
 .slide-enter-active,
@@ -102,8 +102,8 @@ div.content {
 }
 .slide-enter,
 .slide-leave-to {
-  transform: translateX(-290px);
-  -webkit-transform: translateX(-290px);
+  transform: translateX(-320px);
+  -webkit-transform: translateX(-320px);
 }
 @media (min-width:768px){
   .graph-body{
@@ -128,9 +128,8 @@ div.content {
   .sidebar {
     display: block;
     height: 100vh;
-    width: 90%;
+    width: 320px;
     overflow: auto;
-    max-width: 100%;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 5px 10px;
   }
 }

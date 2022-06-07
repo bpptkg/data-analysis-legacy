@@ -20,11 +20,6 @@
                 :alt="graph.title"
                 style="max-width: 100%"
               />
-              <p 
-                class="card-text" 
-                style="color: rgb(65, 65, 65); font-size: 0.8em; text-align: center;"
-                >Grafik telah tersedia, silahkan pilih download untuk mengunduh gambar grafik.
-              </p>
               <a 
                 class="btn d-flex justify-content-center btn-outline-success" 
                 :href="graph.image.url" 
@@ -37,7 +32,7 @@
         </div>
       </div>
   <transition name="slide">
-    <aside v-if="show" class="sidebar" ref="sidebar">
+    <aside v-if="show" class="sidebar">
       <div class="form-container">
         <form>
           <div class="title">
@@ -59,12 +54,12 @@
           <div class="name">
             <label>Tanggal Selesai</label>
           </div>
-              <b-form-datepicker
-                class="mb-2"
-                v-model="end_date"
-                locale="id"
-                selected-variant="success">
-              </b-form-datepicker>
+            <b-form-datepicker
+              class="mb-2"
+              v-model="end_date"
+              locale="id"
+              selected-variant="success">
+            </b-form-datepicker>
           <div class="name">
             <label>Pilih Grafik</label>
           </div>
@@ -83,7 +78,7 @@
           <br><br><br>
           <div class="d-flex flex-row-reverse">
             <b-button
-              class="btn shadow-sm p-2"
+              class="button shadow-sm p-2"
               type="button"
               variant="success"
               style="font-size: 0.9em; font-weight: 500; transition: all 0.5s ease;"
@@ -244,7 +239,7 @@ export default {
       ],
     };
   },
-  methods:{
+  methods: {
     handleOnExecute() {
     this.toggleIs_Loading();
     axios
