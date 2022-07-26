@@ -11,12 +11,12 @@ submit:
 
 - VUE_APP_API_KEY
 
-  API key credentials to provide access to the API. You can contact the administrator to get the key.
+  API key credentials to provide access to the APIs. You can contact the administrator to get the key.
 
 ## Project setup
 Clone the project from GitHub repository:
 
-      git clone https://github.com/fajarutamaa/data-analysis.git
+      git clone https://github.com/bpptkg/data-analysis.git
 
 Install all package dependencies:
 
@@ -27,4 +27,4 @@ Compile and hot-reload for development:
       npm run serve
     
 ### License
-[MIT](https://github.com/fajarutamaa/data-analysis/blob/main/LICENSE)
+[MIT](https://github.com/bpptkg/data-analysis/blob/main/LICENSE)
