@@ -8,7 +8,7 @@
           </div>
         </div>
         <div class="row graph-body" style="padding: 10px;">
-          <div v-for="graph in graphs" :key="graph.id" class="card col-md-4 mt-3" style="border-radius: 15px;">
+          <div v-for="graph in graphs" :key="graph.id" class="card col-md-4 mt-3" style="border-radius: 12px; border-color: transparent;">
             <div class="card-body">
               <h5 
                 class="card-title text-success" 
@@ -24,7 +24,7 @@
                 class="btn d-flex justify-content-center btn-outline-success" 
                 :href="graph.image.url" 
                 target="_blank" 
-                style="border-radius: 20px; font-weight: 600; font-size: 0.9em;"
+                style="border-radius: 10px; font-weight: 600; font-size: 0.9em;"
                 >Download
               </a>
             </div>
@@ -69,19 +69,18 @@
                   <input 
                     v-model="graph_choices"
                     type="checkbox"
-                    :value="choice.name" 
+                    :value="choice.name"
                   />
                   {{choice.title}}
                 </label>
               </div>
             </b-dropdown>
           <br><br><br>
-          <div class="d-flex flex-row-reverse">
+          <div class="execute d-flex flex-row-reverse">
             <b-button
               class="button shadow-sm p-2"
               type="button"
               variant="success"
-              style="font-size: 0.9em; font-weight: 500; transition: all 0.5s ease;"
               @click.prevent="handleOnExecute"
               >Eksekusi</b-button>
           </div>
@@ -239,7 +238,7 @@ export default {
       ],
     };
   },
-  methods: {
+methods: {
     handleOnExecute() {
     this.toggleIs_Loading();
     axios
@@ -265,9 +264,9 @@ export default {
         position: 'top-end',
         showConfirmButton: false,
         timer: 5000,
+        timerProgressBar: true,
         icon: 'error',
-        title: 'Oops..',
-        text: "Permintaan gagal diproses, silahkan coba kembali!",
+        title: 'Permintaan gagal diproses, silahkan coba kembali!',
       });
       })
       .finally(() => {
